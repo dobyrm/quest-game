@@ -1,0 +1,12 @@
+{
+    "require": {
+        "larapack/dd": "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "src/Controller",
+            "Core\\": "src/Core",
+            "Services\\": "src/Services"
+        }
+    }
+}
