@@ -1,6 +1,6 @@
 <?php
 
-use Services\Route;
+use Services\Route\Route;
 
 if(!empty($_GET['mode'])) {
     $obj = new Route('game');

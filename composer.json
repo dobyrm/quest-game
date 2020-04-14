@@ -1,6 +1,7 @@
 {
     "require": {
-        "larapack/dd": "1.*"
+        "larapack/dd": "1.*",
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

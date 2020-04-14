@@ -1,16 +1,21 @@
 <?php
 
-namespace Services;
+namespace Services\Route;
 
 use Controller\ControllerGame;
 
 class Route
 {
     /**
-     * @var $controller
+     * @var string $controller
      */
     private $controller;
 
+    /**
+     * Route constructor.
+     *
+     * @param string $controller
+     */
     public function __construct($controller)
     {
         switch ($controller) {
@@ -23,7 +28,7 @@ class Route
     /**
      * Return page
      *
-     * @param $name
+     * @param string $name
      */
     public function getPage($name = '')
     {

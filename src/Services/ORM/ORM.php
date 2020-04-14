@@ -3,7 +3,7 @@
 /**
  * Class ORM
  */
-namespace Services;
+namespace Services\ORM;
 
 use Exception;
 use PDO;
