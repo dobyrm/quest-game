@@ -4,7 +4,7 @@ namespace Services\Storage;
 
 interface StorageInterface
 {
-    public function set(string $key = '', array $data = []): bool;
+    public function set(string $key = '', $data = null): bool;
 
     public function destroy(string $key): bool;
 }

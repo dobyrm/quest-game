@@ -34,4 +34,18 @@ class Storage extends BaseStorage
 
         return $_SESSION;
     }
+
+    /**
+     * @param string $key
+     * @return bool|mixed
+     */
+    public function getDataByKey($key)
+    {
+        if(isset($_SESSION[$key])) {
+
+            return $_SESSION[$key];
+        }
+
+        return false;
+    }
 }

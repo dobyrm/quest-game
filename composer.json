@@ -8,6 +8,7 @@
             "Controller\\": "src/Controller",
             "Core\\": "src/Core",
             "Manager\\": "src/Manager",
+            "Repository\\": "src/Repository",
             "Services\\": "src/Services"
         }
     }

@@ -6,10 +6,10 @@ class BaseStorage implements StorageInterface
 {
     /**
      * @param string $key
-     * @param array $data
+     * @param $data
      * @return bool
      */
-    public function set(string $key = '', array $data = []): bool
+    public function set(string $key = '', $data = null): bool
     {
         if (!empty($key)) {
             $_SESSION[$key] = $data;

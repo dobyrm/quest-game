@@ -11,52 +11,17 @@ use PDO;
 final class ORM
 {
     /**
-     * @var $dbh
+     * @var PDO $dbh
      */
     private $dbh;
 
     /**
-     * @var $sql
+     * @var string $sql
      */
     private $sql = '';
 
     /**
-     * @var $table
-     */
-    private $table;
-
-    /**
-     * @var $fields
-     */
-    private $fields;
-
-    /**
-     * @var $join
-     */
-    private $join = '';
-
-    /**
-     * @var $leftJoin
-     */
-    private $leftJoin = '';
-
-    /**
-     * @var $groupBy
-     */
-    private $groupBy = '';
-
-    /**
-     * @var $limit
-     */
-    private $limit;
-
-    /**
-     * @var $offset
-     */
-    private $offset;
-
-    /**
-     * ControllerDataForDatabase constructor.
+     * ORM constructor.
      */
     public function __construct()
     {
@@ -66,7 +31,7 @@ final class ORM
     }
 
     /**
-     * Connect to mysql
+     * Connection
      */
     private function connect()
     {
@@ -75,132 +40,22 @@ final class ORM
     }
 
     /**
-     * Set table name for selected
-     *
-     * @param $table
+     * @param string $sql
      * @return ORM
      */
-    public static function table($table)
+    public static function query(string $sql)
     {
         $orm = new ORM();
-        $orm->table = $table;
-        $orm->sql = 'SELECT '. '*'
-            .' FROM '. $orm->table;
+        $orm->sql = $sql;
 
         return $orm;
     }
 
     /**
-     * Set fields for selected
-     *
-     * @param $fields
-     * @return ORM
-     */
-    public function fields($fields)
-    {
-        $this->fields = implode(',', $fields);
-        $this->sql = 'SELECT '. $this->fields
-            .' FROM '. $this->table;
-
-        return $this;
-    }
-
-    /**
-     * Set join
-     *
-     * @param $tables
-     * @param $conditions
-     * @return $this
-     */
-    public function join($tables, $conditions)
-    {
-        $join = '';
-        for ($i = 0; $i < count($tables); $i++) {
-            $join .= ' JOIN ' . $tables[$i] . ' ON ' . $conditions[$i];
-        }
-        $this->join = $join;
-
-        return $this;
-    }
-
-    /**
-     * Set left join
-     *
-     * @param $table
-     * @param $condition
-     * @return $this
-     */
-    public function leftJoin($table, $condition)
-    {
-        $this->leftJoin = ' LEFT JOIN ' . $table . ' ON ' . $condition;
-
-        return $this;
-    }
-
-    /**
-     * Set group by
-     *
-     * @param $groupBy
-     * @return $this
-     */
-    public function groupBy($groupBy)
-    {
-        $this->groupBy = ' GROUP BY ' . implode(',', $groupBy);
-        $this->sql = 'SELECT '. $this->fields
-            .' FROM '. $this->table
-            . $this->leftJoin
-            . $this->join
-            . $this->groupBy;
-
-        return $this;
-    }
-
-    /**
-     * Set limit for selected
-     *
-     * @param $limit
-     * @return $this
-     */
-    public function limit($limit)
-    {
-        $this->limit = $limit;
-        $this->sql = 'SELECT '. $this->fields
-            .' FROM '. $this->table
-            . $this->leftJoin
-            . $this->join
-            . $this->groupBy
-            . ' LIMIT '. $this->limit;
-
-        return $this;
-    }
-
-    /**
-     * Set offset for selected
-     *
-     * @param $offset
-     * @return $this
-     */
-    public function offset($offset)
-    {
-        $this->offset = $offset;
-        $this->sql = 'SELECT '. $this->fields
-            .' FROM '. $this->table
-            . $this->leftJoin
-            . $this->join
-            . $this->groupBy
-            . ' LIMIT '. $this->limit
-            . ' OFFSET '. $this->offset;
-
-        return $this;
-    }
-
-    /**
-     * Sql select by database for params
-     *
-     * @return bool
+     * @return array
      * @throws Exception
      */
-    public function find()
+    public function findAll(): array
     {
         try {
             $sth = $this->dbh->prepare($this->sql);
@@ -209,7 +64,7 @@ final class ORM
                 return $sth->fetchAll(PDO::FETCH_ASSOC);
             }
 
-            return false;
+            return [];
         } catch (Exception $e) {
 
             throw new Exception('Failed to select data');
@@ -217,36 +72,32 @@ final class ORM
     }
 
     /**
-     * Count rows
-     *
-     * @return bool|int
+     * @return array
+     * @throws Exception
      */
-    public static function countRows($table)
+    public function find(): array
     {
-        $orm = new ORM();
-        $sql = "SELECT COUNT(*) FROM ".$table;
+        try {
+            $sth = $this->dbh->prepare($this->sql);
+            if($sth->execute()) {
 
-        $sth = $orm->dbh->prepare($sql);
+                return $sth->fetch(PDO::FETCH_ASSOC);
+            }
 
-        if($sth->execute()) {
+            return [];
+        } catch (Exception $e) {
 
-            return (int) $sth->fetchColumn();
+            throw new Exception('Failed to select data');
         }
-
-        return false;
     }
 
     /**
-     * sqlClean destruct.
+     * ORM destruct.
      */
     public function __destruct()
     {
         $this->dbh = null;
         $this->sql = '';
-        $this->table = null;
-        $this->fields = null;
-        $this->limit = null;
-        $this->offset = null;
     }
 
 }

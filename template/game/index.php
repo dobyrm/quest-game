@@ -10,7 +10,17 @@
                 <h1><?=LANG_APP_NAME?></h1>
                 <p><?=$response['message']?></p>
 
-                <p><a class="btn btn-primary" href="?page=start" role="button"><?=LANG_START?></a> </p>
+                <div class="bd-example">
+                    <dl>
+                        <? foreach ($response['maps'] as $row) : ?>
+                            <dt><?=$row['title']?></dt>
+                            <dd><?=$row['description']?></dd>
+                            <p><a class="btn btn-primary btn-sm" href="?page=map&id=<?=$row['id']?>" role="button"><?=LANG_START?></a></p>
+                            <div class="mb-3"></div>
+                        <? endforeach; ?>
+                    </dl>
+
+                </div>
             </div>
         </div>
     </main>

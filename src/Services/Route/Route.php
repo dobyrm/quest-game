@@ -2,7 +2,8 @@
 
 namespace Services\Route;
 
-use Controller\ControllerGame;
+use Controller\GameController;
+use Core\Conditions\Conditions;
 use Exception;
 
 class Route
@@ -13,15 +14,22 @@ class Route
     private $controller;
 
     /**
+     * @var Conditions $conditions
+     */
+    private $conditions;
+
+    /**
      * Route constructor.
      *
      * @param string $controller
      */
     public function __construct($controller)
     {
+        $this->conditions = new Conditions();
+
         switch ($controller) {
             case 'game':
-                $this->controller = new ControllerGame();
+                $this->controller = new GameController();
                 break;
         }
     }
@@ -34,13 +42,34 @@ class Route
      */
     public function getPage($name = '')
     {
-        switch ($name) {
-            case 'start':
-                $this->controller->start();
-                break;
-            default:
-                $this->controller->index();
-                break;
+        try {
+            if ($this->conditions->checkedRules()) {
+                if ($name == 'game-over') {
+                    $this->controller->gameOver();
+                    exit();
+                }
+                if ($name !== 'playing') {
+                    header("Location: ?page=playing");
+                    exit();
+                }
+            }
+            switch ($name) {
+                case 'map':
+                    $this->controller->map();
+                    break;
+                case 'playing':
+                    $this->controller->playing();
+                    break;
+                case 'game-over':
+                    $this->controller->gameOver();
+                    break;
+                default:
+                    $this->controller->index();
+                    break;
+            }
+        } catch (Exception $e) {
+            header("Location: /");
+            exit();
         }
     }
 }
