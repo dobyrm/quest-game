@@ -3,6 +3,7 @@
 namespace Services\Route;
 
 use Controller\ControllerGame;
+use Exception;
 
 class Route
 {
@@ -29,6 +30,7 @@ class Route
      * Return page
      *
      * @param string $name
+     * @throws Exception
      */
     public function getPage($name = '')
     {
@@ -37,7 +39,7 @@ class Route
                 $this->controller->start();
                 break;
             default:
-                $this->controller->info();
+                $this->controller->index();
                 break;
         }
     }

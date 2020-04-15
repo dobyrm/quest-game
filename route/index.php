@@ -2,9 +2,9 @@
 
 use Services\Route\Route;
 
-if(!empty($_GET['mode'])) {
+if(!empty($_GET['page'])) {
     $obj = new Route('game');
-    switch ($_GET['mode']) {
+    switch ($_GET['page']) {
         case 'start':
             $obj->getPage('start');
             break;
