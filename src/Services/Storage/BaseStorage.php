@@ -29,7 +29,7 @@ class BaseStorage implements StorageInterface
     public function destroy(string $key = '', $index = null): bool
     {
         if (!empty($key)) {
-            if($index !== null) {
+            if ($index !== null) {
                 unset($_SESSION[$key][$index]);
 
                 return true;

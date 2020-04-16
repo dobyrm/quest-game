@@ -2,7 +2,7 @@
 
 use Services\Route\Route;
 
-if(!empty($_GET['page'])) {
+if (!empty($_GET['page'])) {
     $obj = new Route('game');
     switch ($_GET['page']) {
         case 'map':

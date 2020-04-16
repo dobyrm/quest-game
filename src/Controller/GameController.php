@@ -66,27 +66,28 @@ class GameController extends Controller
     public function playing()
     {
         try {
-            if(!$this->storage->getDataByKey('playing')) {
+            if (!$this->storage->getData('playing')) {
                 $this->storage->setData('playing', true);
             }
-            $points = $this->storage->getDataByKey('points');
-            if(empty($points)) {
+            $point = $this->storage->getData('current_point');
+            if (empty($point->action)) {
                 $this->redirect('?page=game-result');
             }
 
-            $pointIndex = array_key_first($points);
             $answer = $this->request::get('answer');
-            if(!empty($answer)) {
+            if (!empty($answer)) {
                 $analytics = new Analytics();
                 if ($answer == 'yes') {
-                    $analytics->yes($pointIndex);
+                    $analytics->yes();
                     $this->redirect('?page=playing');
-                } elseif($answer == 'no') {
-                    $analytics->no($pointIndex);
+                } elseif ($answer == 'no') {
+                    $analytics->no();
                     $this->redirect('?page=playing');
+                } elseif ($answer == 'finish') {
+                    $analytics->finish();
+                    $this->redirect('?page=game-result');
                 }
             }
-            $point = $this->storage->getElement('points', $pointIndex);
 
             return Template::render('game/playing', [
                 'point' => $point
@@ -103,16 +104,16 @@ class GameController extends Controller
     public function gameResult()
     {
         try {
-            if(empty($this->storage->getData())) {
+            if (empty($this->storage->checkEmpty())) {
                 $this->redirect();
             }
-            $countPoints = $this->storage->getData('count_points');
-            $successPoints = $this->storage->getData('success_points');
+            $maxMark = $this->storage->getElement('map', 'max_mark');
+            $yourMark = $this->storage->getData('your_mark');
             $this->storage->destroyData();
 
             return Template::render('game/result', [
-                'count_points' => $countPoints,
-                'success_points' => $successPoints
+                'max_mark' => $maxMark,
+                'your_mark' => $yourMark
             ]);
         } catch(Exception $e) {
 

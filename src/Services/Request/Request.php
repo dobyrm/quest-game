@@ -17,13 +17,13 @@ class Request
     {
         $params = [];
         $get = $_GET;
-        if(empty($get)) {
+        if (empty($get)) {
 
             return $params;
         }
-        if(!empty($index)) {
+        if (!empty($index)) {
 
-            if(isset($get[$index])) {
+            if (isset($get[$index])) {
 
                 return $get[$index];
             } else {
@@ -49,13 +49,13 @@ class Request
     {
         $params = [];
         $post = $_POST;
-        if(empty($post)) {
+        if (empty($post)) {
 
             return $params;
         }
-        if(!empty($index)) {
+        if (!empty($index)) {
 
-            if(isset($post[$index])) {
+            if (isset($post[$index])) {
 
                 return $post[$index];
             } else {

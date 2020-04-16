@@ -23,15 +23,10 @@ class Storage extends BaseStorage
     }
 
     /**
-     * @param string $key
      * @return array
      */
-    public function getData(string $key = null)
+    public function checkEmpty()
     {
-        if(isset($_SESSION[$key])) {
-
-            return $_SESSION[$key];
-        }
 
         return $_SESSION;
     }
@@ -40,9 +35,9 @@ class Storage extends BaseStorage
      * @param string $key
      * @return bool|mixed
      */
-    public function getDataByKey(string $key)
+    public function getData(string $key)
     {
-        if(isset($_SESSION[$key])) {
+        if (isset($_SESSION[$key])) {
 
             return $_SESSION[$key];
         }
@@ -57,7 +52,7 @@ class Storage extends BaseStorage
      */
     public function getElement(string $key, string $index)
     {
-        if(isset($_SESSION[$key][$index])) {
+        if (isset($_SESSION[$key][$index])) {
 
             return $_SESSION[$key][$index];
         }

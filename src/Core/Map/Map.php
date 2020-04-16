@@ -45,18 +45,18 @@ class Map
     {
         $map = $this->mapRepository->getMapById($mapId);
 
+        // Map collection
         $mapping = [];
         $mapping['id'] = $map['id'] ?? null;
         $mapping['title'] = $map['title'] ?? null;
         $mapping['description'] = $map['description'] ?? null;
-
+        $mapping['max_mark'] = $map['max_mark'] ?? 0;
         $this->storage->setData('map', $mapping);
 
-        $points = json_decode($map['points']) ?? null;
-
-        $this->storage->setData('points', $points);
-        $this->storage->setData('count_points', count($points));
-        $this->storage->setData('success_points', 0);
+        // Points collections
+        $point = json_decode($map['points']) ?? null;
+        $this->storage->setData('current_point', $point);
+        $this->storage->setData('your_mark', 0);
 
         return $mapping;
     }

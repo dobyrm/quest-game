@@ -4,7 +4,9 @@ namespace Core\Analytics;
 
 interface AnalyticsInterface
 {
-    public function yes(int $index): bool;
+    public function yes();
 
-    public function no(int $index): bool;
+    public function no();
+
+    public function finish();
 }

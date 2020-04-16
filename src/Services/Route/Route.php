@@ -43,7 +43,7 @@ class Route
     public function getPage($name = '')
     {
         try {
-            if(!($this->conditions->checkedRules()) && ($name == 'game-result')) {
+            if (!($this->conditions->checkedRules()) && ($name == 'game-result')) {
                 header("Location: /");
                 exit();
             }

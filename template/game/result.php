@@ -11,7 +11,7 @@
                 <div class="mb-5"></div>
 
                 <p><?=LANG_GAME_RESULT?></p>
-                <p><?=$response['success_points']?> <?=LANG_CORRECT_MOVIES?> <?=LANG_WITH?> <?=$response['count_points']?></p>
+                <p><?=LANG_YOUR_RATING?> <?=$response['your_mark']?> <?=LANG_WITH?> <?=$response['max_mark']?></p>
                 <div class="mb-5"></div>
 
                 <a class="btn btn-primary btn-sm" href="/" role="button"><?=LANG_HOME?></a>

@@ -24,7 +24,7 @@ class Conditions
      */
     public function checkedRules(): bool
     {
-        if($this->storage->getDataByKey('playing')) {
+        if ($this->storage->getData('playing')) {
 
             return true;
         }

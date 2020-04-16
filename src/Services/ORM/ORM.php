@@ -25,7 +25,7 @@ final class ORM
      */
     public function __construct()
     {
-        if(!$this->dbh) {
+        if (!$this->dbh) {
             $this->connect();
         }
     }
@@ -59,7 +59,7 @@ final class ORM
     {
         try {
             $sth = $this->dbh->prepare($this->sql);
-            if($sth->execute()) {
+            if ($sth->execute()) {
 
                 return $sth->fetchAll(PDO::FETCH_ASSOC);
             }
@@ -79,7 +79,7 @@ final class ORM
     {
         try {
             $sth = $this->dbh->prepare($this->sql);
-            if($sth->execute()) {
+            if ($sth->execute()) {
 
                 return $sth->fetch(PDO::FETCH_ASSOC);
             }
