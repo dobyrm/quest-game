@@ -8,8 +8,10 @@
         <div class="container">
             <div class="col-md-12">
                 <h1><?=LANG_APP_NAME?></h1>
-                <p><?=$response['message']?></p>
+                <p><?=LANG_APP_DESCRIPTION?></p>
+                <div class="mb-3"></div>
 
+                <p><?=LANG_CHOOSE_YOUR_PATH?></p>
                 <div class="bd-example">
                     <dl>
                         <? foreach ($response['maps'] as $row) : ?>

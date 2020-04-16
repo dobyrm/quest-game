@@ -8,7 +8,6 @@ namespace Controller;
 use Core\Analytics\Analytics;
 use Core\Map\Map;
 use Exception;
-use Manager\GameManager;
 use Services\Template\Template;
 
 class GameController extends Controller
@@ -29,14 +28,10 @@ class GameController extends Controller
     public function index()
     {
         try {
-            $gameManager = new GameManager();
             $gameMap = new Map();
-
-            $info = $gameManager->getInfo();
             $maps = $gameMap->getMaps();
 
             return Template::render('game/index', [
-                'message' => $info,
                 'maps' => $maps,
             ]);
         } catch(Exception $e) {
