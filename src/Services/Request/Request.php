@@ -26,6 +26,9 @@ class Request
             if(isset($get[$index])) {
 
                 return $get[$index];
+            } else {
+
+                return [];
             }
         }
 
@@ -55,6 +58,9 @@ class Request
             if(isset($post[$index])) {
 
                 return $post[$index];
+            } else {
+
+                return [];
             }
         }
 

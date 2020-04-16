@@ -43,9 +43,13 @@ class Route
     public function getPage($name = '')
     {
         try {
+            if(!($this->conditions->checkedRules()) && ($name == 'game-result')) {
+                header("Location: /");
+                exit();
+            }
             if ($this->conditions->checkedRules()) {
-                if ($name == 'game-over') {
-                    $this->controller->gameOver();
+                if ($name == 'game-result') {
+                    $this->controller->gameResult();
                     exit();
                 }
                 if ($name !== 'playing') {
@@ -60,8 +64,8 @@ class Route
                 case 'playing':
                     $this->controller->playing();
                     break;
-                case 'game-over':
-                    $this->controller->gameOver();
+                case 'game-result':
+                    $this->controller->gameResult();
                     break;
                 default:
                     $this->controller->index();

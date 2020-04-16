@@ -19,7 +19,6 @@
                             <div class="mb-3"></div>
                         <? endforeach; ?>
                     </dl>
-
                 </div>
             </div>
         </div>

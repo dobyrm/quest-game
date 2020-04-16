@@ -46,14 +46,19 @@ class Map
         $map = $this->mapRepository->getMapById($mapId);
 
         $mapping = [];
-        $item['id'] = $map['id'] ?? null;
-        $item['title'] = $map['title'] ?? null;
-        $item['description'] = $map['description'] ?? null;
-        $item['points'] = json_decode($map['points']) ?? null;
+        $mapping['id'] = $map['id'] ?? null;
+        $mapping['title'] = $map['title'] ?? null;
+        $mapping['description'] = $map['description'] ?? null;
 
         $this->storage->setData('map', $mapping);
 
-        return $item;
+        $points = json_decode($map['points']) ?? null;
+
+        $this->storage->setData('points', $points);
+        $this->storage->setData('count_points', count($points));
+        $this->storage->setData('success_points', 0);
+
+        return $mapping;
     }
 
     /**

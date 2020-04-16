@@ -23,11 +23,17 @@ class BaseStorage implements StorageInterface
 
     /**
      * @param string $key
+     * @param null $index
      * @return bool
      */
-    public function destroy(string $key = ''): bool
+    public function destroy(string $key = '', $index = null): bool
     {
         if (!empty($key)) {
+            if($index !== null) {
+                unset($_SESSION[$key][$index]);
+
+                return true;
+            }
             unset($_SESSION[$key]);
 
             return true;

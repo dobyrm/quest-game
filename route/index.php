@@ -11,8 +11,8 @@ if(!empty($_GET['page'])) {
         case 'playing':
             $obj->getPage('playing');
             break;
-        case 'game-over':
-            $obj->getPage('game-over');
+        case 'game-result':
+            $obj->getPage('game-result');
             break;
         default:
             $obj->getPage();

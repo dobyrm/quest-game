@@ -10,8 +10,8 @@
                 <h1><?=LANG_APP_NAME?></h1>
                 <div class="mb-3"></div>
 
-                <dt><?=$response['map']['title']?></dt>
-                <dd><?=$response['map']['description']?></dd>
+                <p><?=$response['map']['title']?></p>
+                <p><?=$response['map']['description']?></p>
                 <div class="mb-5"></div>
 
                 <p class="text-center">

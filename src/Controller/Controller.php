@@ -28,4 +28,13 @@ class Controller
         $this->request = new Request();
         $this->storage = new Storage();
     }
+
+    /**
+     * @param string $link
+     */
+    public function redirect(string $link = '/')
+    {
+        header("Location: /" . $link);
+        exit();
+    }
 }

@@ -5,6 +5,7 @@
  */
 namespace Controller;
 
+use Core\Analytics\Analytics;
 use Core\Map\Map;
 use Exception;
 use Manager\GameManager;
@@ -13,21 +14,11 @@ use Services\Template\Template;
 class GameController extends Controller
 {
     /**
-     * @var GameManager $gameManager
+     * GameController constructor.
      */
-    private $gameManager;
-
-    /**
-     * @var Map $gameMap
-     */
-    private $gameMap;
-
     public function __construct()
     {
         parent::__construct();
-
-        $this->gameManager = new GameManager();
-        $this->gameMap = new Map();
     }
 
     /**
@@ -38,8 +29,11 @@ class GameController extends Controller
     public function index()
     {
         try {
-            $info = $this->gameManager->getInfo();
-            $maps = $this->gameMap->getMaps();
+            $gameManager = new GameManager();
+            $gameMap = new Map();
+
+            $info = $gameManager->getInfo();
+            $maps = $gameMap->getMaps();
 
             return Template::render('game/index', [
                 'message' => $info,
@@ -58,7 +52,9 @@ class GameController extends Controller
     {
         try {
             $mapId = $this->request::get('id');
-            $map = $this->gameMap->setMap($mapId);
+
+            $gameMap = new Map();
+            $map = $gameMap->setMap($mapId);
 
             return Template::render('game/map', [
                 'map' => $map,
@@ -78,8 +74,28 @@ class GameController extends Controller
             if(!$this->storage->getDataByKey('playing')) {
                 $this->storage->setData('playing', true);
             }
+            $points = $this->storage->getDataByKey('points');
+            if(empty($points)) {
+                $this->redirect('?page=game-result');
+            }
 
-            return Template::render('game/playing', []);
+            $pointIndex = array_key_first($points);
+            $answer = $this->request::get('answer');
+            if(!empty($answer)) {
+                $analytics = new Analytics();
+                if ($answer == 'yes') {
+                    $analytics->yes($pointIndex);
+                    $this->redirect('?page=playing');
+                } elseif($answer == 'no') {
+                    $analytics->no($pointIndex);
+                    $this->redirect('?page=playing');
+                }
+            }
+            $point = $this->storage->getElement('points', $pointIndex);
+
+            return Template::render('game/playing', [
+                'point' => $point
+            ]);
         } catch(Exception $e) {
 
             echo $e->getMessage();
@@ -87,13 +103,25 @@ class GameController extends Controller
     }
 
     /**
-     * Remove all game sessions and redirect to homepage
+     * Remove all game sessions and redirect to result game page
      */
-    public function gameOver()
+    public function gameResult()
     {
-        $this->storage->destroyData();
+        try {
+            if(empty($this->storage->getData())) {
+                $this->redirect();
+            }
+            $countPoints = $this->storage->getData('count_points');
+            $successPoints = $this->storage->getData('success_points');
+            $this->storage->destroyData();
 
-        header("Location: /");
-        exit();
+            return Template::render('game/result', [
+                'count_points' => $countPoints,
+                'success_points' => $successPoints
+            ]);
+        } catch(Exception $e) {
+
+            echo $e->getMessage();
+        }
     }
 }
