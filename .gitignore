@@ -1,0 +1,10 @@
+###> system config
+/.idea/
+/.env
+/.env.test
+/public/media/
+/public/.htaccess
+/var/
+/vendor/
+composer.lock
+###< system config

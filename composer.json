@@ -1,0 +1,15 @@
+{
+    "require": {
+        "larapack/dd": "1.*",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "src/Controller",
+            "Core\\": "src/Core",
+            "Manager\\": "src/Manager",
+            "Repository\\": "src/Repository",
+            "Services\\": "src/Services"
+        }
+    }
+}
