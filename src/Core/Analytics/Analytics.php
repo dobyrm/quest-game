@@ -27,9 +27,11 @@ class Analytics implements AnalyticsInterface
         $point = $this->storage->getData('current_point');
 
         // Set bonuses
-        $bonuses = $this->storage->getData('bonuses');
-        $bonus = $bonuses + $point->bonus;
-        $this->storage->setData('bonuses', $bonus);
+        if (isset($point->bonus)) {
+            $bonuses = $this->storage->getData('bonuses');
+            $bonus = $bonuses + $point->bonus;
+            $this->storage->setData('bonuses', $bonus);
+        }
 
         // Solution analysis
         if (isset($point->action->yes)) {
@@ -55,9 +57,11 @@ class Analytics implements AnalyticsInterface
         $point = $this->storage->getData('current_point');
 
         // Set bonuses
-        $bonuses = $this->storage->getData('bonuses');
-        $bonus = $bonuses + $point->bonus;
-        $this->storage->setData('bonuses', $bonus);
+        if (isset($point->bonus)) {
+            $bonuses = $this->storage->getData('bonuses');
+            $bonus = $bonuses + $point->bonus;
+            $this->storage->setData('bonuses', $bonus);
+        }
 
         // Solution analysis
         if (isset($point->action->no)) {
@@ -84,9 +88,11 @@ class Analytics implements AnalyticsInterface
 
         if (isset($point->action->finish)) {
             // Set bonuses
-            $bonuses = $this->storage->getData('bonuses');
-            $bonus = $bonuses + $point->bonus;
-            $this->storage->setData('bonuses', $bonus);
+            if (isset($point->bonus)) {
+                $bonuses = $this->storage->getData('bonuses');
+                $bonus = $bonuses + $point->bonus;
+                $this->storage->setData('bonuses', $bonus);
+            }
 
             // Set mark
             $this->storage->setData('your_mark', $point->action->mark);
