@@ -11,5 +11,6 @@ define ('LANG_YES', 'YES');
 define ('LANG_NO', 'NO');
 define ('LANG_GAME_RESULT', 'Game over. Go to home and selected new game');
 define ('LANG_YOUR_RATING', 'Your rating');
+define ('LANG_YOUR_BONUSES', 'Your bonuses');
 define ('LANG_WITH', 'with');
 define ('LANG_HOME', 'Home');

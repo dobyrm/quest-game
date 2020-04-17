@@ -15,12 +15,12 @@
             <div class="mb-5"></div>
 
             <p class="text-center">
-                <? if (!isset($response['point']->action->finis)) : ?>
+                <? if (!isset($response['point']->action->finish)) : ?>
                     <a class="btn btn-primary btn-sm" href="?page=playing&answer=yes" role="button"><?=LANG_YES?></a>
                     <a class="btn btn-primary btn-sm" href="?page=playing&answer=no" role="button"><?=LANG_NO?></a>
                 <? endif ?>
 
-                <? if (isset($response['point']->action->finis)) : ?>
+                <? if (isset($response['point']->action->finish)) : ?>
                     <a class="btn btn-primary btn-sm" href="?page=playing&answer=finish" role="button"><?=LANG_FINISH?></a>
                 <? endif ?>
             </p>

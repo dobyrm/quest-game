@@ -108,11 +108,13 @@ class GameController extends Controller
                 $this->redirect();
             }
             $maxMark = $this->storage->getElement('map', 'max_mark');
+            $bonuses = $this->storage->getData('bonuses');
             $yourMark = $this->storage->getData('your_mark');
             $this->storage->destroyData();
 
             return Template::render('game/result', [
                 'max_mark' => $maxMark,
+                'bonuses' => $bonuses,
                 'your_mark' => $yourMark
             ]);
         } catch(Exception $e) {
