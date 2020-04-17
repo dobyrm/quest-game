@@ -36,7 +36,9 @@ class Analytics implements AnalyticsInterface
         // Solution analysis
         if (isset($point->action->yes)) {
             if((isset($point->action->yes->finish)) && ($point->action->yes->finish)) {
-                $this->storage->setData('your_mark', $point->action->yes->mark);
+                if(isset($point->action->yes->mark)) {
+                    $this->storage->setData('your_mark', $point->action->yes->mark);
+                }
                 $this->storage->setData('current_point', null);
 
                 return true;
@@ -66,7 +68,9 @@ class Analytics implements AnalyticsInterface
         // Solution analysis
         if (isset($point->action->no)) {
             if((isset($point->action->no->finish)) && ($point->action->no->finish)) {
-                $this->storage->setData('your_mark', $point->action->no->mark);
+                if(isset($point->action->no->mark)) {
+                    $this->storage->setData('your_mark', $point->action->no->mark);
+                }
                 $this->storage->setData('current_point', null);
 
                 return true;
@@ -95,7 +99,9 @@ class Analytics implements AnalyticsInterface
             }
 
             // Set mark
-            $this->storage->setData('your_mark', $point->action->mark);
+            if(isset($point->action->mark)) {
+                $this->storage->setData('your_mark', $point->action->mark);
+            }
             $this->storage->setData('current_point', null);
         }
 
