@@ -12,6 +12,7 @@
 
                 <p><?=LANG_GAME_RESULT?></p>
                 <p><?=LANG_YOUR_RATING?> <?=$response['your_mark']?> <?=LANG_WITH?> <?=$response['max_mark']?></p>
+                <p><?=LANG_YOUR_BONUSES?> <?=$response['bonuses']?></p>
                 <div class="mb-5"></div>
 
                 <a class="btn btn-primary btn-sm" href="/" role="button"><?=LANG_HOME?></a>

@@ -56,7 +56,7 @@ class Map
         // Points collections
         $point = json_decode($map['points']) ?? null;
         $this->storage->setData('current_point', $point);
-        $this->storage->setData('your_mark', 0);
+        $this->storage->setData('bonuses', 0);
 
         return $mapping;
     }

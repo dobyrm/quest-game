@@ -20,56 +20,79 @@ class Analytics implements AnalyticsInterface
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function yes()
+    public function yes(): bool
     {
         $point = $this->storage->getData('current_point');
 
+        // Set bonuses
+        $bonuses = $this->storage->getData('bonuses');
+        $bonus = $bonuses + $point->bonus;
+        $this->storage->setData('bonuses', $bonus);
+
+        // Solution analysis
         if (isset($point->action->yes)) {
+            if(isset($point->action->yes->finish)) {
+                $this->storage->setData('your_mark', $point->action->yes->mark);
+                $this->storage->setData('current_point', null);
+
+                return true;
+            }
             $this->storage->setData('current_point', $point->action->yes);
         } else {
             $this->storage->setData('current_point', null);
         }
 
-        $yourMark = $this->storage->getData('your_mark');
-        $newMark = $yourMark + $point->mark;
-        $this->storage->setData('your_mark', $newMark);
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function no()
+    public function no(): bool
     {
         $point = $this->storage->getData('current_point');
 
+        // Set bonuses
+        $bonuses = $this->storage->getData('bonuses');
+        $bonus = $bonuses + $point->bonus;
+        $this->storage->setData('bonuses', $bonus);
+
+        // Solution analysis
         if (isset($point->action->no)) {
+            if(isset($point->action->yes->finish)) {
+                $this->storage->setData('your_mark', $point->action->no->mark);
+                $this->storage->setData('current_point', null);
+
+                return true;
+            }
             $this->storage->setData('current_point', $point->action->no);
         } else {
             $this->storage->setData('current_point', null);
         }
 
-        $yourMark = $this->storage->getData('your_mark');
-        $newMark = $yourMark + $point->mark;
-        $this->storage->setData('your_mark', $newMark);
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function finish()
+    public function finish(): bool
     {
         $point = $this->storage->getData('current_point');
 
         if (isset($point->action->finish)) {
-            $this->storage->setData('current_point', $point->action->finish);
-        } else {
+            // Set bonuses
+            $bonuses = $this->storage->getData('bonuses');
+            $bonus = $bonuses + $point->bonus;
+            $this->storage->setData('bonuses', $bonus);
+
+            // Set mark
+            $this->storage->setData('your_mark', $point->action->mark);
             $this->storage->setData('current_point', null);
         }
 
-        $yourMark = $this->storage->getData('your_mark');
-        $newMark = $yourMark + $point->mark;
-        $this->storage->setData('your_mark', $newMark);
+        return true;
     }
 }
